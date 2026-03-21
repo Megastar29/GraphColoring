@@ -23,6 +23,17 @@
             this.Nodes.Add(node);
         }
 
+        public void SetNodeColor(int id, int color)
+        {
+            foreach (var node in this.Nodes)
+            {
+                if (node.Id == id)
+                {
+                    node.Color = color;
+                }
+            }
+        }
+
         public void GetGraphFromAdjacencyMatrix(int[,] matrix)
         {
             throw new NotImplementedException();
