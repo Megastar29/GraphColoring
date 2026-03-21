@@ -1,0 +1,56 @@
+﻿using Graphs;
+using GraphAlgorithms;
+using System.Runtime.CompilerServices;
+
+namespace TestConsoleUI
+{
+    internal class Program
+    {
+        private static void DisplayGraph(Graph graph)
+        {
+            for (int i = 0; i < graph.Nodes.Count; i++)
+            {
+                string color = "";
+
+                if (graph.Nodes[i].Color is null)
+                {
+                    color = "null";
+                }
+                else
+                {
+                    color = graph.Nodes[i].Color.ToString();
+                }
+
+                Console.Write($"#{i}, ID: {graph.Nodes[i].Id}, Degree {graph.Nodes[i].Degree}, Color: {color}, NeighborsID: ");
+
+                for (int j = 0; j < graph.Nodes[i].Neighbors.Count; j++)
+                {
+                    Console.Write($"{graph.Nodes[i].Neighbors[j].Id} ");
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        public static void Main(string[] args)
+        {
+            Graph graph = new Graph();
+
+            // create 4 nodes
+            for (int i = 0; i < 4; i++)
+            {
+                graph.AddNode(new Node());
+            }
+
+            // link nodes
+            graph.Nodes[0].AddNeighbor(graph.Nodes[1]);
+            graph.Nodes[1].AddNeighbor(graph.Nodes[2]);
+            graph.Nodes[2].AddNeighbor(graph.Nodes[0]);
+            graph.Nodes[3].AddNeighbor(graph.Nodes[2]);
+
+            Algorithms.GreedyAlgorithm(graph);
+
+            DisplayGraph(graph);
+        }
+    }
+}

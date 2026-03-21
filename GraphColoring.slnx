@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Algorithms/">
+    <Project Path="GreedyAlgorithm/Algorithms.csproj" Id="d6b9c360-dd6b-4891-ba86-539c3bf5fc67" />
+  </Folder>
+  <Folder Name="/GraphsFolder/">
+    <Project Path="ClassLibrary1/Node.csproj" />
+    <Project Path="Graph/Graph.csproj" />
+  </Folder>
+  <Project Path="TestConsoleUI/TestConsoleUI.csproj" />
+</Solution>
