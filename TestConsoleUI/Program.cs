@@ -36,17 +36,33 @@ namespace TestConsoleUI
         {
             Graph graph = new Graph();
 
-            // create 4 nodes
+            // create 6 nodes
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    graph.AddNode(new Node());
+            //}
             for (int i = 0; i < 4; i++)
             {
                 graph.AddNode(new Node());
             }
 
             // link nodes
+            //graph.Nodes[0].AddNeighbor(graph.Nodes[1]);
+            //graph.Nodes[0].AddNeighbor(graph.Nodes[3]);
+            //graph.Nodes[0].AddNeighbor(graph.Nodes[4]);
+
+            //graph.Nodes[1].AddNeighbor(graph.Nodes[2]);
+            //graph.Nodes[1].AddNeighbor(graph.Nodes[5]);
+
+            //graph.Nodes[2].AddNeighbor(graph.Nodes[3]);
+            //graph.Nodes[2].AddNeighbor(graph.Nodes[5]);
+
+            //graph.Nodes[4].AddNeighbor(graph.Nodes[5]);
+
             graph.Nodes[0].AddNeighbor(graph.Nodes[1]);
+            graph.Nodes[0].AddNeighbor(graph.Nodes[2]);
             graph.Nodes[1].AddNeighbor(graph.Nodes[2]);
-            graph.Nodes[2].AddNeighbor(graph.Nodes[0]);
-            graph.Nodes[3].AddNeighbor(graph.Nodes[2]);
+            graph.Nodes[2].AddNeighbor(graph.Nodes[3]);
 
             Algorithms.GreedyAlgorithm(graph);
 
