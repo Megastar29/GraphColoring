@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Node.csproj" />
+    <ProjectReference Include="..\Algorithms\Algorithms.csproj" />
     <ProjectReference Include="..\Graph\Graph.csproj" />
-    <ProjectReference Include="..\GreedyAlgorithm\Algorithms.csproj" />
+    <ProjectReference Include="..\Node\Node.csproj" />
   </ItemGroup>
 
 </Project>
