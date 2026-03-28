@@ -61,19 +61,41 @@ namespace GraphAlgorithms
         {
             graph.Nodes.Sort((x, y) => y.Degree.CompareTo(x.Degree));
 
-            BacktrackingDegreeAlgorithmRecursion(graph);
+            BacktrackingDegreeAlgorithmRecursion(graph, 0);
 
             graph.Nodes.Sort((x, y) => x.Id.CompareTo(y.Id));
         }
 
-        private static bool BacktrackingDegreeAlgorithmRecursion(Graph graph)
+        private static bool BacktrackingDegreeAlgorithmRecursion(Graph graph, int currentNodeIndex)
         {
             if (graph.IsAllNodesColored())
             {
                 return true;
             }
 
+            if (currentNodeIndex >= graph.Nodes.Count)
+            {
+                return true;
+            }
 
+            var node = graph.Nodes[currentNodeIndex];
+
+            for (int color = 0; color < graph.Nodes.Count; color++)
+            {
+                if (!node.Neighbors.Any(x => x.Color == color))
+                {
+                    node.Color = color;
+
+                    if (BacktrackingDegreeAlgorithmRecursion(graph, currentNodeIndex + 1))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        node.Color = null;
+                    }
+                }
+            }
 
             return false;
         }

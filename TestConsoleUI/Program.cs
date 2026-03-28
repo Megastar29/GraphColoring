@@ -9,7 +9,7 @@ namespace TestConsoleUI
         {
             for (int i = 0; i < graph.Nodes.Count; i++)
             {
-                string color = "";
+                string? color = "";
 
                 if (graph.Nodes[i].Color is null)
                 {
