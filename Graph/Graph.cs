@@ -34,6 +34,30 @@
             }
         }
 
+        public void AssignAvailableColors()
+        {
+            foreach(var node in this.Nodes)
+            {
+                for (int i = 0; i < this.Nodes.Count; i++)
+                {
+                    node.AvailableColors.Add(i);
+                }
+            }
+        }
+
+        public bool IsAllNodesColored()
+        {
+            foreach (var node in this.Nodes)
+            {
+                if (node.Color is null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public void GetGraphFromAdjacencyMatrix(int[,] matrix)
         {
             throw new NotImplementedException();

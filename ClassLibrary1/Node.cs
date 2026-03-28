@@ -12,11 +12,14 @@ namespace Graphs
 
         public int Id { get; private set; }
 
+        public List<int?> AvailableColors { get; set; }
+
         private static int counter = 0;
 
         public Node()
         {
             this.Neighbors = new List<Node>();
+            this.AvailableColors = new List<int?>();
             this.Color = null;
             this.Degree = 0;
             this.Id = counter;
