@@ -48,7 +48,37 @@ namespace GraphAlgorithms
             graph.Nodes.Sort((x, y) => x.Id.CompareTo(y.Id));
         }
 
-        public static bool BacktrackingMRVAlgorithm(Graph graph)
+        public static void BacktrackingMRVAlgorithm(Graph graph)
+        {
+            graph.AssignAvailableColors();
+
+            BacktrackingMRVAlgorithmRecursion(graph);
+
+            graph.DeleteAvailableColors();
+        }
+
+        public static void BacktrackingDegreeAlgorithm(Graph graph)
+        {
+            graph.Nodes.Sort((x, y) => y.Degree.CompareTo(x.Degree));
+
+            BacktrackingDegreeAlgorithmRecursion(graph);
+
+            graph.Nodes.Sort((x, y) => x.Id.CompareTo(y.Id));
+        }
+
+        private static bool BacktrackingDegreeAlgorithmRecursion(Graph graph)
+        {
+            if (graph.IsAllNodesColored())
+            {
+                return true;
+            }
+
+
+
+            return false;
+        }
+
+        private static bool BacktrackingMRVAlgorithmRecursion(Graph graph)
         {
             if (graph.IsAllNodesColored())
             {
@@ -67,39 +97,34 @@ namespace GraphAlgorithms
                 if (IsAssignmentPossible(node, color))
                 {
                     node.Color = color;
-                }
 
-                List<List<int?>> colorsCopy = new List<List<int?>>();
-                foreach (var element in graph.Nodes)
-                {
-                    colorsCopy.Add(element.AvailableColors);
-                }
-
-                if (UpdateColors(node))
-                {
-                    bool res = BacktrackingMRVAlgorithm(graph);
-
-                    if (res)
+                    List<List<int?>> colorsCopy = new List<List<int?>>();
+                    foreach (var element in graph.Nodes)
                     {
-                        return res;
+                        colorsCopy.Add(element.AvailableColors.ToList());
                     }
-                }
 
-                int counter = 0;
-                node.Color = null;
-                foreach (var element in graph.Nodes)
-                {
-                    element.AvailableColors = colorsCopy[counter];
-                    counter++;
+                    if (UpdateColors(node))
+                    {
+                        bool res = BacktrackingMRVAlgorithmRecursion(graph);
+
+                        if (res)
+                        {
+                            return res;
+                        }
+                    }
+
+                    int counter = 0;
+                    node.Color = null;
+                    foreach (var element in graph.Nodes)
+                    {
+                        element.AvailableColors = colorsCopy[counter];
+                        counter++;
+                    }
                 }
             }
 
             return false;
-        }
-
-        public static void BacktrackingDegreeAlgorithm(Graph graph)
-        {
-            throw new NotImplementedException();
         }
 
         private static Node? ChooseNodeWithMinAvailableColors(Graph graph)

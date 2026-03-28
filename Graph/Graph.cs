@@ -45,6 +45,14 @@
             }
         }
 
+        public void DeleteAvailableColors()
+        {
+            foreach (var node in this.Nodes)
+            {
+                node.AvailableColors.Clear();
+            }
+        }
+
         public bool IsAllNodesColored()
         {
             foreach (var node in this.Nodes)
@@ -56,6 +64,11 @@
             }
 
             return true;
+        }
+
+        public void Clear()
+        {
+            this.Nodes.Clear();
         }
 
         public void GetGraphFromAdjacencyMatrix(int[,] matrix)

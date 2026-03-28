@@ -64,8 +64,8 @@ namespace TestConsoleUI
             //graph.Nodes[2].AddNeighbor(graph.Nodes[3]);
 
             //Algorithms.GreedyAlgorithm(graph);
-            graph.AssignAvailableColors();
-            Algorithms.BacktrackingMRVAlgorithm(graph);
+            //Algorithms.BacktrackingMRVAlgorithm(graph);
+            Algorithms.BacktrackingDegreeAlgorithm(graph);
 
             DisplayGraph(graph);
         }
