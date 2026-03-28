@@ -73,12 +73,58 @@
 
         public void GetGraphFromAdjacencyMatrix(int[,] matrix)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                this.Nodes.Add(new Node());
+            }
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    if (i < j)
+                    {
+                        if (matrix[i, j] == 1)
+                        {
+                            this.Nodes[i].AddNeighbor(this.Nodes[j]);
+                        }
+                    }
+                }
+            }
         }
 
         public int[,] GetAdjacencyMatrix()
         {
-            throw new NotImplementedException();
+            var matrix = MakeEmptyMatrix(this.Nodes.Count);
+
+            for (int i = 0; i < this.Nodes.Count; i++)
+            {
+                for (int j = 0; j < this.Nodes.Count; j++)
+                {
+                    if (i < j && this.Nodes[i].Neighbors.Contains(this.Nodes[j]))
+                    {
+                        matrix[i, j] = 1;
+                        matrix[j, i] = 1;
+                    }
+                }
+            }
+
+            return matrix;
+        }
+
+        private int[,] MakeEmptyMatrix(int side)
+        {
+            int[,] matrix = new int[side, side];
+
+            for (int i = 0; i < side; i++)
+            {
+                for (int j = 0; j < side; j++)
+                {
+                    matrix[i, j] = 0;
+                }
+            }
+            
+            return matrix;
         }
     }
 }

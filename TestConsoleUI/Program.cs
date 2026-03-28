@@ -31,6 +31,18 @@ namespace TestConsoleUI
             }
         }
 
+        private static void DisplayMatrix(int[,] matrix)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write($"{matrix[i, j]} ");
+                }
+                Console.WriteLine();
+            }
+        }
+
         public static void Main(string[] args)
         {
             Graph graph = new Graph();
@@ -68,6 +80,13 @@ namespace TestConsoleUI
             Algorithms.BacktrackingDegreeAlgorithm(graph);
 
             DisplayGraph(graph);
+            Console.WriteLine();
+            DisplayMatrix(graph.GetAdjacencyMatrix());
+
+            Graph graph2 = new();
+            graph2.GetGraphFromAdjacencyMatrix(graph.GetAdjacencyMatrix());
+            Console.WriteLine();
+            DisplayGraph(graph2);
         }
     }
 }

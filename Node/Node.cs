@@ -2,7 +2,7 @@
 
 namespace Graphs
 {
-    public class Node //: IComparable<Node>
+    public class Node
     {
         public List<Node> Neighbors { get; set; }
 
@@ -51,13 +51,5 @@ namespace Graphs
                 return true;
             }
         }
-
-        // might delete
-        //public int CompareTo(Node? other)
-        //{
-        //    ArgumentNullException.ThrowIfNull(other, nameof(other));
-
-        //    return this.Degree - other.Degree;
-        //}
     }
 }
