@@ -1,13 +1,15 @@
 ﻿using Graphs;
+using System.Collections.Specialized;
 
 namespace GraphAlgorithms
 {
     public static class Algorithms
     {
-        public static void GreedyAlgorithm(Graph graph)
+        public static int GreedyAlgorithm(Graph graph)
         {
+            int countChecks = 0;
+
             graph.Nodes.Sort((x, y) => y.Degree.CompareTo(x.Degree));
-            List<Node> coloredNodes = new();
 
             int currentColor = 0;
 
@@ -16,7 +18,6 @@ namespace GraphAlgorithms
                 if (node.Color is null)
                 {
                     node.Color = currentColor;
-                    coloredNodes.Add(node);
 
                     foreach (var otherNode in graph.Nodes)
                     {
@@ -24,28 +25,30 @@ namespace GraphAlgorithms
                         {
                             bool setColor = true;
 
-                            foreach (var item in coloredNodes)
+                            foreach (var neighbor in otherNode.Neighbors)
                             {
-                                if (item.Neighbors.Contains(otherNode))
+                                countChecks++;
+                                if (neighbor.Color == currentColor)
                                 {
                                     setColor = false;
+                                    break;
                                 }
                             }
 
                             if (setColor)
                             {
                                 otherNode.Color = currentColor;
-                                coloredNodes.Add(otherNode);
                             }
                         }
                     }
 
                     currentColor++;
-                    coloredNodes.Clear();
                 }
             }
 
             graph.Nodes.Sort((x, y) => x.Id.CompareTo(y.Id));
+
+            return countChecks;
         }
 
         public static void BacktrackingMRVAlgorithm(Graph graph)

@@ -77,16 +77,17 @@ namespace TestConsoleUI
 
             //Algorithms.GreedyAlgorithm(graph);
             //Algorithms.BacktrackingMRVAlgorithm(graph);
-            Algorithms.BacktrackingDegreeAlgorithm(graph);
+            var difficulty = Algorithms.GreedyAlgorithm(graph);
 
             DisplayGraph(graph);
-            Console.WriteLine();
-            DisplayMatrix(graph.GetAdjacencyMatrix());
+            Console.WriteLine($"Difficulty: {difficulty}");
+            //Console.WriteLine();
+            //DisplayMatrix(graph.GetAdjacencyMatrix());
 
-            Graph graph2 = new();
-            graph2.GetGraphFromAdjacencyMatrix(graph.GetAdjacencyMatrix());
-            Console.WriteLine();
-            DisplayGraph(graph2);
+            //Graph graph2 = new();
+            //graph2.GetGraphFromAdjacencyMatrix(graph.GetAdjacencyMatrix());
+            //Console.WriteLine();
+            //DisplayGraph(graph2);
         }
     }
 }
