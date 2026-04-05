@@ -77,7 +77,7 @@ namespace TestConsoleUI
 
             //Algorithms.GreedyAlgorithm(graph);
             //Algorithms.BacktrackingMRVAlgorithm(graph);
-            var difficulty = Algorithms.GreedyAlgorithm(graph);
+            var difficulty = Algorithms.BacktrackingDegreeAlgorithm(graph);
 
             DisplayGraph(graph);
             Console.WriteLine($"Difficulty: {difficulty}");

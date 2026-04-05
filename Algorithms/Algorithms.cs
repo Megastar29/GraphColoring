@@ -51,26 +51,35 @@ namespace GraphAlgorithms
             return countChecks;
         }
 
-        public static void BacktrackingMRVAlgorithm(Graph graph)
+        public static int BacktrackingMRVAlgorithm(Graph graph)
         {
             graph.AssignAvailableColors();
 
-            BacktrackingMRVAlgorithmRecursion(graph);
+            int totalNodesInTree = 0;
+            bool res = BacktrackingMRVAlgorithmRecursion(graph, ref totalNodesInTree);
 
             graph.DeleteAvailableColors();
+
+            return totalNodesInTree;
         }
 
-        public static void BacktrackingDegreeAlgorithm(Graph graph)
+        public static int BacktrackingDegreeAlgorithm(Graph graph)
         {
             graph.Nodes.Sort((x, y) => y.Degree.CompareTo(x.Degree));
 
-            BacktrackingDegreeAlgorithmRecursion(graph, 0);
+            int totalNodesInTree = 0;
+
+            BacktrackingDegreeAlgorithmRecursion(graph, 0, ref totalNodesInTree);
 
             graph.Nodes.Sort((x, y) => x.Id.CompareTo(y.Id));
+
+            return totalNodesInTree;
         }
 
-        private static bool BacktrackingDegreeAlgorithmRecursion(Graph graph, int currentNodeIndex)
+        private static bool BacktrackingDegreeAlgorithmRecursion(Graph graph, int currentNodeIndex, ref int totalNodesInTree)
         {
+            totalNodesInTree++;
+
             if (graph.IsAllNodesColored())
             {
                 return true;
@@ -89,7 +98,7 @@ namespace GraphAlgorithms
                 {
                     node.Color = color;
 
-                    if (BacktrackingDegreeAlgorithmRecursion(graph, currentNodeIndex + 1))
+                    if (BacktrackingDegreeAlgorithmRecursion(graph, currentNodeIndex + 1, ref totalNodesInTree))
                     {
                         return true;
                     }
@@ -103,8 +112,10 @@ namespace GraphAlgorithms
             return false;
         }
 
-        private static bool BacktrackingMRVAlgorithmRecursion(Graph graph)
+        private static bool BacktrackingMRVAlgorithmRecursion(Graph graph, ref int totalNodesInTree)
         {
+            totalNodesInTree++;
+
             if (graph.IsAllNodesColored())
             {
                 return true;
@@ -131,7 +142,7 @@ namespace GraphAlgorithms
 
                     if (UpdateColors(node))
                     {
-                        bool res = BacktrackingMRVAlgorithmRecursion(graph);
+                        bool res = BacktrackingMRVAlgorithmRecursion(graph, ref totalNodesInTree);
 
                         if (res)
                         {
