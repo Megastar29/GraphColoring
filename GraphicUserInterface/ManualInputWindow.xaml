@@ -1,0 +1,51 @@
+﻿<Window x:Class="GraphicUserInterface.ManualInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphicUserInterface"
+        mc:Ignorable="d"
+        Title="Manual Matrix Input" Height="450" Width="800"
+        Icon="/favicon.ico">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock Text="Enter the size of graph (number of nodes):" 
+                       FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox x:Name="MatrixSizeInput" Height="30" VerticalContentAlignment="Center" Padding="5"/>
+        </StackPanel>
+
+        <Separator Grid.Row="1" Margin="0,5,0,15" Background="LightGray"/>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Enter adjacency matrix (rows separated by Enter):" 
+                       FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox Grid.Row="1" x:Name="MatrixInput" 
+                     AcceptsReturn="True" 
+                     VerticalScrollBarVisibility="Auto" 
+                     HorizontalScrollBarVisibility="Auto"
+                     Padding="5"
+                     FontFamily="Consolas"/>
+        </Grid>
+
+        <Separator Grid.Row="3" Margin="0,15,0,10" Background="LightGray"/>
+
+        <Button Grid.Row="4" x:Name="OkBtn" 
+                Content="OK" 
+                Height="35" Width="120"
+                HorizontalAlignment="Right"
+                FontWeight="Bold"
+                Background="LightGray" Foreground="Black" Click="OkBtn_Click"/>
+    </Grid>
+</Window>

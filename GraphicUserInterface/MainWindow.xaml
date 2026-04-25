@@ -22,17 +22,18 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="10">
                 <TextBlock Text="Entering graph type" Margin="0,0,0,5" FontSize="14"/>
-                <ComboBox Margin="0,0,0,15" SelectedIndex="2">
+                <ComboBox Margin="0,0,0,15" x:Name="InputSelection" SelectedIndex="2" SelectionChanged="InputSelection_SelectionChanged">
                     <ComboBoxItem Content="From file"/>
                     <ComboBoxItem Content="By hand"/>
                     <ComboBoxItem Content="None"/>
                 </ComboBox>
                 <TextBlock Text="Algorithm" Margin="0,0,0,5" FontSize="14"/>
-                <ComboBox Margin="0,0,0,10" SelectedIndex="3">
+                <ComboBox Margin="0,0,0,10" x:Name="AlgSelection" SelectedIndex="3" SelectionChanged="AlgSelection_SelectionChanged">
                     <ComboBoxItem Content="Greedy algorithm"/>
                     <ComboBoxItem Content="Backtracking MRV"/>
                     <ComboBoxItem Content="Backtracking degree"/>
@@ -41,13 +42,26 @@
                 <Separator Margin="0,10" />
             </StackPanel>
 
+            
             <GroupBox Grid.Row="1" Header="Statistics" Margin="10" FontSize="14">
                 <StackPanel>
-                    <TextBlock Text="Alg name: " FontWeight="Bold" Padding="3,2,0,0"/>
-                    <TextBlock Text="Time: " Padding="3,0,0,0"/>
-                    <TextBlock Text="Stats: " Padding="3,0,0,0"/>
+                    <TextBlock Text="Algorithm name: " x:Name="AlgorithmNameText"  FontWeight="Bold" Padding="3,2,0,0"/>
+                    <TextBlock Text="Time: " x:Name="TimeText" Padding="3,0,0,0"/>
+                    <TextBlock Text="Practical difficulty: " x:Name="PractDifText" Padding="3,0,0,0"/>
                 </StackPanel>
             </GroupBox>
+
+            <Button Grid.Row="2" 
+                    x:Name="StartBtn" 
+                    Content="Start" 
+                    Margin="10,0,10,15" 
+                    Height="45" 
+                    FontSize="18" 
+                    FontWeight="Bold"
+                    Background="LightGray" 
+                    Foreground="Black"
+                    Cursor="Hand"/>
+            
         </Grid>
     </Grid>
 </Window>

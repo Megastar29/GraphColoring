@@ -23,7 +23,7 @@ public static class FileManager
 
         foreach (var line in lines)
         {
-            if (line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length != lines.Length)
+            if (line.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries).Length != lines.Length)
             {
                 throw new FormatException($"The matrix is not in a correct format. Each row must contain exactly {lines.Length} elements (square matrix required)");
             }
@@ -33,7 +33,7 @@ public static class FileManager
 
         for (int i = 0; i < lines.Length; i++)
         {
-            var lineOfNumbers = lines[i].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var lineOfNumbers = lines[i].Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < lineOfNumbers.Length; j++)
             {
                 int number;
