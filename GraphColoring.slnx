@@ -2,9 +2,13 @@
   <Folder Name="/Algorithms/">
     <Project Path="Algorithms/Algorithms.csproj" Id="d6b9c360-dd6b-4891-ba86-539c3bf5fc67" />
   </Folder>
-  <Folder Name="/GraphsFolder/">
-    <Project Path="Node/Node.csproj" />
-    <Project Path="Graph/Graph.csproj" />
+  <Folder Name="/FileMenager/">
+    <Project Path="FileMenager/FileMenager.csproj" Id="fb32ac6a-030c-45f0-927e-ff514196d93f" />
   </Folder>
+  <Folder Name="/GraphsFolder/">
+    <Project Path="Graph/Graph.csproj" />
+    <Project Path="Node/Node.csproj" />
+  </Folder>
+  <Project Path="GraphicUserInterface/GraphicUserInterface.csproj" Id="66955502-d39f-4b1d-a760-95f1051f11bd" />
   <Project Path="TestConsoleUI/TestConsoleUI.csproj" />
 </Solution>

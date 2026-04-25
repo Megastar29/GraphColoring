@@ -1,0 +1,52 @@
+﻿<Window x:Class="GraphicUserInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphicUserInterface"
+        mc:Ignorable="d"
+        Title="Graph Coloring App" Height="600" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="0,0,1,0">
+            <Canvas x:Name="GraphCanvas" Background="#FFFFFF"/>
+            <!--"#F9F9F9" />-->
+        </Border>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="10">
+                <TextBlock Text="Entering graph type" Margin="0,0,0,5" FontSize="14"/>
+                <ComboBox Margin="0,0,0,15" SelectedIndex="2">
+                    <ComboBoxItem Content="From file"/>
+                    <ComboBoxItem Content="By hand"/>
+                    <ComboBoxItem Content="None"/>
+                </ComboBox>
+                <TextBlock Text="Algorithm" Margin="0,0,0,5" FontSize="14"/>
+                <ComboBox Margin="0,0,0,10" SelectedIndex="3">
+                    <ComboBoxItem Content="Greedy algorithm"/>
+                    <ComboBoxItem Content="Backtracking MRV"/>
+                    <ComboBoxItem Content="Backtracking degree"/>
+                    <ComboBoxItem Content="None"/>
+                </ComboBox>
+                <Separator Margin="0,10" />
+            </StackPanel>
+
+            <GroupBox Grid.Row="1" Header="Statistics" Margin="10" FontSize="14">
+                <StackPanel>
+                    <TextBlock Text="Alg name: Backtracking" FontWeight="Bold" Padding="3,2,0,0"/>
+                    <TextBlock Text="Time: 12ms" Padding="3,0,0,0"/>
+                    <TextBlock Text="Stats: 4 colors used" Padding="3,0,0,0"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
