@@ -1,13 +1,16 @@
 ﻿using Graphs;
 using System.Collections.Specialized;
+using System.Diagnostics;
 
 namespace GraphAlgorithms
 {
     public static class Algorithms
     {
-        public static int GreedyAlgorithm(Graph graph)
+        public static (int, long) GreedyAlgorithm(Graph graph)
         {
             int countChecks = 0;
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             graph.Nodes.Sort((x, y) => y.Degree.CompareTo(x.Degree));
 
@@ -46,34 +49,41 @@ namespace GraphAlgorithms
                 }
             }
 
+            stopwatch.Stop();
+
             graph.Nodes.Sort((x, y) => x.Id.CompareTo(y.Id));
 
-            return countChecks;
+            return (countChecks, stopwatch.ElapsedMilliseconds);
         }
 
-        public static int BacktrackingMRVAlgorithm(Graph graph)
+        public static (int, long) BacktrackingMRVAlgorithm(Graph graph)
         {
             graph.AssignAvailableColors();
 
             int totalNodesInTree = 0;
+            Stopwatch stopwatch = Stopwatch.StartNew();
             bool res = BacktrackingMRVAlgorithmRecursion(graph, ref totalNodesInTree);
+            stopwatch.Stop();
 
             graph.DeleteAvailableColors();
 
-            return totalNodesInTree;
+            return (totalNodesInTree, stopwatch.ElapsedMilliseconds);
         }
 
-        public static int BacktrackingDegreeAlgorithm(Graph graph)
+        public static (int, long) BacktrackingDegreeAlgorithm(Graph graph)
         {
+            Stopwatch stopwatch = Stopwatch.StartNew();
             graph.Nodes.Sort((x, y) => y.Degree.CompareTo(x.Degree));
 
             int totalNodesInTree = 0;
 
             BacktrackingDegreeAlgorithmRecursion(graph, 0, ref totalNodesInTree);
 
+            stopwatch.Stop();
+
             graph.Nodes.Sort((x, y) => x.Id.CompareTo(y.Id));
 
-            return totalNodesInTree;
+            return (totalNodesInTree, stopwatch.ElapsedMilliseconds);
         }
 
         private static bool BacktrackingDegreeAlgorithmRecursion(Graph graph, int currentNodeIndex, ref int totalNodesInTree)
