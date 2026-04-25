@@ -89,6 +89,9 @@ namespace TestConsoleUI
             Console.WriteLine();
             DisplayMatrix(graph.GetAdjacencyMatrix());
 
+
+            FileManager.LoadDataToFile(@"C:\Users\Lenovo\dataGraph.txt", graph);
+
             //Graph graph2 = new();
             //graph2.GetGraphFromAdjacencyMatrix(graph.GetAdjacencyMatrix());
             //Console.WriteLine();

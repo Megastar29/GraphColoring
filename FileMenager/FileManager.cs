@@ -1,4 +1,5 @@
 ﻿using FileEmpty;
+using Graphs;
 
 namespace FileMenagingClass;
 
@@ -70,5 +71,39 @@ public static class FileManager
         }
 
         return matrix;
+    }
+
+    public static void LoadDataToFile(string path, Graph graph)
+    {
+        if (!File.Exists(path))
+        {
+            //throw new FileNotFoundException("The file does not exist at specified path");
+            //File.Create(path);
+        }
+
+        using StreamWriter writer = new StreamWriter(path);
+
+        for (int i = 0; i < graph.Nodes.Count; i++)
+        {
+            string? color = "";
+
+            if (graph.Nodes[i].Color is null)
+            {
+                color = "null";
+            }
+            else
+            {
+                color = graph.Nodes[i].Color.ToString();
+            }
+
+            writer.Write($"#{i}, Degree {graph.Nodes[i].Degree}, Color: {color}, NeighborsID: ");
+
+            for (int j = 0; j < graph.Nodes[i].Neighbors.Count; j++)
+            {
+                writer.Write($"{graph.Nodes[i].Neighbors[j].Id} ");
+            }
+
+            writer.WriteLine();
+        }
     }
 }
