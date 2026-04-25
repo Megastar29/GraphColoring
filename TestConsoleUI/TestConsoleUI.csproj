@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Algorithms\Algorithms.csproj" />
+    <ProjectReference Include="..\FileMenager\FileMenager.csproj" />
     <ProjectReference Include="..\Graph\Graph.csproj" />
     <ProjectReference Include="..\Node\Node.csproj" />
   </ItemGroup>

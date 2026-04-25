@@ -1,5 +1,6 @@
 ﻿using Graphs;
 using GraphAlgorithms;
+using FileMenagingClass;
 
 namespace TestConsoleUI
 {
@@ -47,28 +48,32 @@ namespace TestConsoleUI
         {
             Graph graph = new Graph();
 
+            const string path = /*@"C:\Users\Lenovo\data.txt";*/@"D:\КПІ\ОП_Курсова\TestGraph.txt";
+            int[,] matrix = FileManager.GetDataFromFile(path);
+
+            graph.GetGraphFromAdjacencyMatrix(matrix);
             // create 6 nodes
-            for (int i = 0; i < 6; i++)
-            {
-                graph.AddNode(new Node());
-            }
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    graph.AddNode(new Node());
+            //}
             //for (int i = 0; i < 4; i++)
             //{
             //    graph.AddNode(new Node());
             //}
 
             // link nodes
-            graph.Nodes[0].AddNeighbor(graph.Nodes[1]);
-            graph.Nodes[0].AddNeighbor(graph.Nodes[3]);
-            graph.Nodes[0].AddNeighbor(graph.Nodes[4]);
+            //graph.Nodes[0].AddNeighbor(graph.Nodes[1]);
+            //graph.Nodes[0].AddNeighbor(graph.Nodes[3]);
+            //graph.Nodes[0].AddNeighbor(graph.Nodes[4]);
 
-            graph.Nodes[1].AddNeighbor(graph.Nodes[2]);
-            graph.Nodes[1].AddNeighbor(graph.Nodes[5]);
+            //graph.Nodes[1].AddNeighbor(graph.Nodes[2]);
+            //graph.Nodes[1].AddNeighbor(graph.Nodes[5]);
 
-            graph.Nodes[2].AddNeighbor(graph.Nodes[3]);
-            graph.Nodes[2].AddNeighbor(graph.Nodes[5]);
+            //graph.Nodes[2].AddNeighbor(graph.Nodes[3]);
+            //graph.Nodes[2].AddNeighbor(graph.Nodes[5]);
 
-            graph.Nodes[4].AddNeighbor(graph.Nodes[5]);
+            //graph.Nodes[4].AddNeighbor(graph.Nodes[5]);
 
             //graph.Nodes[0].AddNeighbor(graph.Nodes[1]);
             //graph.Nodes[0].AddNeighbor(graph.Nodes[2]);
@@ -81,8 +86,8 @@ namespace TestConsoleUI
 
             DisplayGraph(graph);
             Console.WriteLine($"Difficulty: {difficulty}");
-            //Console.WriteLine();
-            //DisplayMatrix(graph.GetAdjacencyMatrix());
+            Console.WriteLine();
+            DisplayMatrix(graph.GetAdjacencyMatrix());
 
             //Graph graph2 = new();
             //graph2.GetGraphFromAdjacencyMatrix(graph.GetAdjacencyMatrix());

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicUserInterface"
         mc:Ignorable="d"
-        Title="Graph Coloring App" Height="600" Width="1000">
+        Title="Graph Coloring App" Height="600" Width="1000"
+        Icon="/favicon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*" />
@@ -42,9 +43,9 @@
 
             <GroupBox Grid.Row="1" Header="Statistics" Margin="10" FontSize="14">
                 <StackPanel>
-                    <TextBlock Text="Alg name: Backtracking" FontWeight="Bold" Padding="3,2,0,0"/>
-                    <TextBlock Text="Time: 12ms" Padding="3,0,0,0"/>
-                    <TextBlock Text="Stats: 4 colors used" Padding="3,0,0,0"/>
+                    <TextBlock Text="Alg name: " FontWeight="Bold" Padding="3,2,0,0"/>
+                    <TextBlock Text="Time: " Padding="3,0,0,0"/>
+                    <TextBlock Text="Stats: " Padding="3,0,0,0"/>
                 </StackPanel>
             </GroupBox>
         </Grid>
