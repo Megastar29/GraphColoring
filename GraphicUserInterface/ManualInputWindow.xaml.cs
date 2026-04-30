@@ -35,7 +35,7 @@ namespace GraphicUserInterface
                 return;
             }
 
-            if (size <= 0 || size > 20)
+            if (size <= 0 || size > MainWindow.MaxGraphSize)
             {
                 MessageBox.Show("The size must be between 1 and 20. Try again.");
                 return;

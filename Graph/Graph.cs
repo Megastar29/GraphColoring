@@ -68,7 +68,16 @@
 
         public void Clear()
         {
+            Node.ResetCounter();
             this.Nodes.Clear();
+        }
+
+        public void ClearColors()
+        {
+            foreach (var node in this.Nodes)
+            {
+                node.Color = null;
+            }
         }
 
         public void GetGraphFromAdjacencyMatrix(int[,] matrix)

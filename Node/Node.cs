@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Graphs
 {
@@ -50,6 +51,11 @@ namespace Graphs
             {
                 return true;
             }
+        }
+
+        public static void ResetCounter()
+        {
+            Node.counter = 0;
         }
     }
 }
