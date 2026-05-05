@@ -51,19 +51,16 @@ namespace GraphicUserInterface
         private void GenerateColors()
         {
             double goldenRatioInv = 0.618033988749895;
-            double h = 0; // Початковий тон (Hue)
+            double h = 0;
 
             for (int i = 0; i < this.colorBrushes.Length; i++)
             {
                 h += goldenRatioInv;
-                h %= 1; // Залишаємося в межах [0; 1]
+                h %= 1;
 
-                // Чергуємо яскравість: один світліший, інший темніший
                 double lightness = (i % 2 == 0) ? 0.45 : 0.75;
-                // Чергуємо насиченість: один насичений, інший більш пастельний
                 double saturation = (i % 3 == 0) ? 0.8 : 0.5;
 
-                // Перетворюємо H (тон) у RGB колір (насиченість 0.6, яскравість 0.6 для гарних кольорів)
                 Color color = HslToRgb(h * 360, saturation, lightness);
                 this.colorBrushes[i] = new SolidColorBrush(color);
             }
