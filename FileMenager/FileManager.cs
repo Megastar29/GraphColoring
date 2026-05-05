@@ -75,12 +75,6 @@ public static class FileManager
 
     public static void LoadDataToFile(string path, Graph graph)
     {
-        //if (!File.Exists(path))
-        //{
-        //    throw new FileNotFoundException("The file does not exist at specified path");
-        //    File.Create(path);
-        //}
-
         using StreamWriter writer = new StreamWriter(path);
 
         for (int i = 0; i < graph.Nodes.Count; i++)

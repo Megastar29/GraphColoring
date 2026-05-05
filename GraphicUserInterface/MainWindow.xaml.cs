@@ -32,9 +32,6 @@ namespace GraphicUserInterface
         private const int AlgSelectionNoneIndex = 3;
         private const int InputSelectionNoneIndex = 2;
         private Graph MainGraph = new Graph();
-        //private const int MinColorVal = 0;
-        //private const int MaxColorVal = 240;
-        //private const int MinGraphColorVal = 0;
         public const int MaxGraphSize = 20;
         private const int MaxGraphColorVal = MaxGraphSize;
         private SolidColorBrush[] colorBrushes;
@@ -78,7 +75,7 @@ namespace GraphicUserInterface
 
             if (s == 0)
             {
-                r = g = b = l; // Відтінки сірого
+                r = g = b = l;
             }
             else
             {
@@ -141,17 +138,11 @@ namespace GraphicUserInterface
             TimeText.Text = TimeInitText + StartTime;
             PractDifText.Text = PractDifInitText + StartPracDif;
             PrintBtn.Visibility = Visibility.Collapsed;
-
-            //if ((AlgSelection.SelectedItem as ComboBoxItem) == (AlgSelection.Items[AlgSelectionNoneIndex] as ComboBoxItem))
-            //{
-            //    TimeText.Text = TimeInitText + StartTime;
-            //    PractDifText.Text = PractDifInitText + StartPracDif;
-            //}
         }
 
         private void InputSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (InputSelection is null /*|| (InputSelection.SelectedItem as ComboBoxItem) == (InputSelection.Items[InputSelectionNoneIndex] as ComboBoxItem)*/)
+            if (InputSelection is null)
             {
                 return;
             }
@@ -181,8 +172,7 @@ namespace GraphicUserInterface
                     break;
 
                 default:
-                    //this.MainGraph.Clear();
-                    this.GraphCanvas.Children.Clear(); // Очищаємо візуальне поле
+                    this.GraphCanvas.Children.Clear();
 
                     if (TimeText is not null)
                     {
@@ -206,7 +196,6 @@ namespace GraphicUserInterface
             {
                 try
                 {
-                    // handle FileEmptyException
                     int[,] matrix = FileManager.GetDataFromFile(openFileDialog.FileName);
 
                     if (matrix.GetLength(0) > MaxGraphSize)
@@ -263,13 +252,10 @@ namespace GraphicUserInterface
                     if (matrix is null)
                     {
                         InputSelection.SelectedIndex = 2;
-                        //MessageBox.Show("The matrix is empty");
                         throw new InvalidDataException("The matrix is empty");
                     }
 
                     this.MainGraph?.GetGraphFromAdjacencyMatrix(matrix);
-
-                    //MainGraph?.GetGraphFromAdjacencyMatrix(matrix);
 
                     if (MainGraph is null)
                     {
@@ -292,7 +278,6 @@ namespace GraphicUserInterface
             else
             {
                 InputSelection.SelectedIndex = 2;
-                //MessageBox.Show("Matrix is not entered. Please try again");
             }
         }
 

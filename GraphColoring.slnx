@@ -10,5 +10,4 @@
     <Project Path="Node/Node.csproj" />
   </Folder>
   <Project Path="GraphicUserInterface/GraphicUserInterface.csproj" Id="66955502-d39f-4b1d-a760-95f1051f11bd" />
-  <Project Path="TestConsoleUI/TestConsoleUI.csproj" />
 </Solution>
