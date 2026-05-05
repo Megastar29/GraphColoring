@@ -165,6 +165,11 @@ namespace GraphicUserInterface
             string choice = selected.Content.ToString();
             this.MainGraph?.Clear();
 
+            if (PrintBtn is not null)
+            {
+                PrintBtn.Visibility = Visibility.Collapsed;
+            }            
+
             switch (choice)
             {
                 case "From file":
@@ -221,18 +226,22 @@ namespace GraphicUserInterface
                 catch (FileEmptyException feex)
                 {
                     MessageBox.Show($"File is empty: {feex.Message}");
+                    InputSelection.SelectedIndex = 2;
                 }
                 catch (FileNotFoundException fnfex)
                 {
                     MessageBox.Show($"File not found: {fnfex.Message}");
+                    InputSelection.SelectedIndex = 2;
                 }
                 catch (InvalidDataException iex)
                 {
                     MessageBox.Show($"Invalid data: {iex.Message}");
+                    InputSelection.SelectedIndex = 2;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error: {ex.Message}");
+                    InputSelection.SelectedIndex = 2;
                 }
             }
             else
@@ -247,25 +256,38 @@ namespace GraphicUserInterface
 
             if (inputWindow.ShowDialog() == true)
             {
-                var matrix = inputWindow.ResultMatrix;
+                try
+                {
+                    var matrix = inputWindow.ResultMatrix;
 
-                if (matrix is null)
+                    if (matrix is null)
+                    {
+                        InputSelection.SelectedIndex = 2;
+                        //MessageBox.Show("The matrix is empty");
+                        throw new InvalidDataException("The matrix is empty");
+                    }
+
+                    this.MainGraph?.GetGraphFromAdjacencyMatrix(matrix);
+
+                    //MainGraph?.GetGraphFromAdjacencyMatrix(matrix);
+
+                    if (MainGraph is null)
+                    {
+                        throw new InvalidDataException("Can't load the graph");
+                    }
+
+                    this.DrawGraph(MainGraph);
+                }
+                catch (InvalidDataException idex)
                 {
                     InputSelection.SelectedIndex = 2;
-                    MessageBox.Show("The matrix is empty");
-                    return;
+                    MessageBox.Show($"Invalid data: {idex.Message}");
                 }
-
-                this.MainGraph?.GetGraphFromAdjacencyMatrix(matrix);
-
-                //MainGraph?.GetGraphFromAdjacencyMatrix(matrix);
-
-                if (MainGraph is null)
+                catch (Exception ex)
                 {
-                    throw new InvalidDataException("Can't load the graph");
-                }
-
-                this.DrawGraph(MainGraph);
+                    InputSelection.SelectedIndex = 2;
+                    MessageBox.Show($"Error: {ex.Message}");
+                }                
             }
             else
             {
@@ -306,6 +328,7 @@ namespace GraphicUserInterface
             switch (algorithmItem.Content.ToString())
             {
                 case "Greedy algorithm":
+                    PrintBtn.Visibility = Visibility.Visible;
                     if (MainGraph.IsAllNodesColored())
                     {
                         MessageBox.Show("The graph is colored");
@@ -318,9 +341,9 @@ namespace GraphicUserInterface
 
                     TimeText.Text = TimeInitText + timeMs + " ms";
                     PractDifText.Text = PractDifInitText + "Count of iterations: " + countIterations;
-                    PrintBtn.Visibility = Visibility.Visible;
                     break;
                 case "Backtracking MRV":
+                    PrintBtn.Visibility = Visibility.Visible;
                     if (MainGraph.IsAllNodesColored())
                     {
                         MessageBox.Show("The graph is colored");
@@ -333,9 +356,9 @@ namespace GraphicUserInterface
 
                     TimeText.Text = TimeInitText + timeMRVMs + " ms";
                     PractDifText.Text = PractDifInitText + "Count of nodes in search tree: " + totalNodesInSearchTree;
-                    PrintBtn.Visibility = Visibility.Visible;
                     break;
                 case "Backtracking degree":
+                    PrintBtn.Visibility = Visibility.Visible;
                     if (MainGraph.IsAllNodesColored())
                     {
                         MessageBox.Show("The graph is colored");
@@ -348,7 +371,6 @@ namespace GraphicUserInterface
 
                     TimeText.Text = TimeInitText + timeDegreeMs + " ms";
                     PractDifText.Text = PractDifInitText + "Count of nodes in search tree: " + totalNodesInDegreeSearchTree;
-                    PrintBtn.Visibility = Visibility.Visible;
                     break;
                 default:
                     MessageBox.Show("The non algorithm value has been chosen");
