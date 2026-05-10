@@ -3,8 +3,20 @@ using Graphs;
 
 namespace FileMenagingClass;
 
+/// <summary>
+/// Provides static methods for reading graph adjacency matrices from files and saving graph data to files.
+/// </summary>
 public static class FileManager
 {
+    /// <summary>
+    /// Reads an adjacency matrix from a specified text file and rigorously validates its format.
+    /// </summary>
+    /// <param name="path">The absolute or relative path to the text file containing the matrix.</param>
+    /// <returns>A 2D integer array representing the validated adjacency matrix of the graph.</returns>
+    /// <exception cref="FileNotFoundException">Thrown when the specified file does not exist.</exception>
+    /// <exception cref="FileEmptyException">Thrown when the file is empty or contains only whitespace.</exception>
+    /// <exception cref="FormatException">Thrown when the matrix is not square, contains non-integer values, or contains values other than 0 and 1.</exception>
+    /// <exception cref="InvalidDataException">Thrown when the matrix contains self-loops (non-zero elements on the main diagonal) or is not symmetrical.</exception>
     public static int[,] GetDataFromFile(string path)
     {
         if (!File.Exists(path))
@@ -73,6 +85,11 @@ public static class FileManager
         return matrix;
     }
 
+    /// <summary>
+    /// Saves the detailed information of a colored graph to a specified text file.
+    /// </summary>
+    /// <param name="path">The file path where the graph data will be saved.</param>
+    /// <param name="graph">The graph object containing the nodes, their colors, degrees, and adjacency information.</param>
     public static void LoadDataToFile(string path, Graph graph)
     {
         using StreamWriter writer = new StreamWriter(path);

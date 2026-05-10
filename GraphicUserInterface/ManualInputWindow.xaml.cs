@@ -19,13 +19,26 @@ namespace GraphicUserInterface
     /// </summary>
     public partial class ManualInputWindow : Window
     {
+        /// <summary>
+        /// Gets the parsed and validated 2D adjacency matrix resulting from the user's input. 
+        /// Returns null if the input has not yet been successfully processed.
+        /// </summary>
         public int[,]? ResultMatrix { get; private set; } = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManualInputWindow"/> class.
+        /// </summary>
         public ManualInputWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Event handler for the confirmation button click. Validates the inputted graph size, 
+        /// triggers the matrix parsing process, and handles any resulting formatting errors by alerting the user.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             string sizeText = MatrixSizeInput.Text;
@@ -59,6 +72,21 @@ namespace GraphicUserInterface
             this.DialogResult = true;
         }
 
+        /// <summary>
+        /// Parses the raw multi-line string input from the UI text box into a structured 2D integer array 
+        /// representing an adjacency matrix. Rigorously validates graph rules.
+        /// </summary>
+        /// <param name="size">The expected number of rows and columns (vertices) in the matrix.</param>
+        /// <returns>A validated, symmetrical 2D integer array representing the graph's connections.</returns>
+        /// <exception cref="FormatException">
+        /// Thrown under the following conditions:
+        /// - The input field is empty.
+        /// - The number of rows does not match the specified <paramref name="size"/>.
+        /// - The matrix is not perfectly square.
+        /// - The elements contain non-integer characters or values other than 0 and 1.
+        /// - The main diagonal contains non-zero elements (self-loops are not allowed).
+        /// - The matrix is not symmetrical across the main diagonal (undirected graph requirement).
+        /// </exception>
         private int[,] ReadMatrix(int size)
         {
             var res = MatrixInput.Text.Trim();

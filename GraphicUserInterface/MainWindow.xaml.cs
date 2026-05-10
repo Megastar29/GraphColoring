@@ -32,11 +32,20 @@ namespace GraphicUserInterface
         private const int AlgSelectionNoneIndex = 3;
         private const int InputSelectionNoneIndex = 2;
         private Graph MainGraph = new Graph();
+
+        /// <summary>
+        /// Defines the maximum allowed number of nodes in the graph to ensure UI performance and visual clarity.
+        /// </summary>
         public const int MaxGraphSize = 20;
+
         private const int MaxGraphColorVal = MaxGraphSize;
         private SolidColorBrush[] colorBrushes;
-        private readonly SolidColorBrush nullColor = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        private readonly SolidColorBrush _nullColor = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class, setting up the UI components, 
+        /// initializing default text values, and generating the color palette for graph nodes.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +57,10 @@ namespace GraphicUserInterface
             this.GenerateColors();
         }
 
+        /// <summary>
+        /// Generates a visually distinct palette of colors using the Golden Ratio conjugate 
+        /// to ensure adjacent colors are easily distinguishable from one another.
+        /// </summary>
         private void GenerateColors()
         {
             double goldenRatioInv = 0.618033988749895;
@@ -65,7 +78,14 @@ namespace GraphicUserInterface
                 this.colorBrushes[i] = new SolidColorBrush(color);
             }
         }
-        
+
+        /// <summary>
+        /// Converts an HSL (Hue, Saturation, Lightness) color value to an RGB (Red, Green, Blue) color value.
+        /// </summary>
+        /// <param name="h">The hue value, ranging from 0 to 360.</param>
+        /// <param name="s">The saturation value, ranging from 0.0 to 1.0.</param>
+        /// <param name="l">The lightness value, ranging from 0.0 to 1.0.</param>
+        /// <returns>A WPF <see cref="Color"/> struct representing the converted RGB values.</returns>
         private Color HslToRgb(double h, double s, double l)
         {
             double r, g, b;
@@ -86,6 +106,13 @@ namespace GraphicUserInterface
             return Color.FromRgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
         }
 
+        /// <summary>
+        /// Helper method for converting HSL hue to an RGB color channel.
+        /// </summary>
+        /// <param name="p">The computed p value.</param>
+        /// <param name="q">The computed q value.</param>
+        /// <param name="t">The normalized color channel parameter.</param>
+        /// <returns>The calculated value for the specific RGB channel.</returns>
         private double HueToRgb(double p, double q, double t)
         {
             if (t < 0)
@@ -116,6 +143,10 @@ namespace GraphicUserInterface
             return p;
         }
 
+        /// <summary>
+        /// Handles the event when the user selects a different graph coloring algorithm from the combo box.
+        /// Resets the graph colors, clears the canvas, and redraws the graph in its initial uncolored state.
+        /// </summary>
         private void AlgSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AlgorithmNameText is null)
@@ -137,6 +168,10 @@ namespace GraphicUserInterface
             PrintBtn.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Handles the event when the user selects the input method (e.g., from file, by hand).
+        /// Routes the logic to the appropriate import handler.
+        /// </summary>
         private void InputSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (InputSelection is null)
@@ -184,6 +219,10 @@ namespace GraphicUserInterface
             }
         }
 
+        /// <summary>
+        /// Prompts the user to select a text file containing an adjacency matrix, 
+        /// validates the file, parses the data, and renders the resulting graph.
+        /// </summary>
         private void HandleFileImport()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -236,6 +275,10 @@ namespace GraphicUserInterface
             }
         }
 
+        /// <summary>
+        /// Opens a secondary window allowing the user to manually input the adjacency matrix,
+        /// processes the input, and renders the corresponding graph.
+        /// </summary>
         private void HandleManualInput()
         {
             ManualInputWindow inputWindow = new ManualInputWindow();
@@ -278,6 +321,10 @@ namespace GraphicUserInterface
             }
         }
 
+        /// <summary>
+        /// Handles the start button click event. Verifies input, executes the chosen 
+        /// graph coloring algorithm, tracks execution time, and updates the visual representation.
+        /// </summary>
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
             PrintBtn.Visibility = Visibility.Collapsed;
@@ -360,6 +407,11 @@ namespace GraphicUserInterface
             }
         }
 
+        /// <summary>
+        /// Visually renders the graph onto the WPF Canvas. Nodes are arranged in a circular layout 
+        /// and edges are drawn as lines connecting adjacent nodes.
+        /// </summary>
+        /// <param name="graph">The graph to be visualized.</param>
         private void DrawGraph(Graph graph)
         {
             GraphCanvas.Children.Clear();
@@ -410,7 +462,7 @@ namespace GraphicUserInterface
                     Height = 30,
                     Stroke = Brushes.Black,
                     StrokeThickness = 2,
-                    Fill = node.Color.HasValue ? this.colorBrushes[node.Color.Value] : this.nullColor
+                    Fill = node.Color.HasValue ? this.colorBrushes[node.Color.Value] : this._nullColor
                 };
 
                 TextBlock txt = new TextBlock
@@ -431,6 +483,10 @@ namespace GraphicUserInterface
             }
         }
 
+        /// <summary>
+        /// Handles the print/save button click event. Exports the colored graph details 
+        /// (nodes, degrees, assigned colors, and neighbors) to an output text file.
+        /// </summary>
         private void PrintBtn_Click(object sender, RoutedEventArgs e)
         {
             try

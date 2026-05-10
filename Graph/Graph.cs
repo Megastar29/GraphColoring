@@ -1,42 +1,30 @@
 ﻿namespace Graphs
 {
+    /// <summary>
+    /// Represents a graph data structure consisting of a collection of nodes, used primarily for graph coloring algorithms.
+    /// </summary>
     public class Graph
     {
+        /// <summary>
+        /// Gets the list of nodes contained within the graph.
+        /// </summary>
         public List<Node> Nodes { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Graph"/> class with an empty list of nodes.
+        /// </summary>
         public Graph()
         {
             this.Nodes = new List<Node>();
         }
 
-        public Graph(List<Node> nodes)
-        {
-            ArgumentNullException.ThrowIfNull(nodes, nameof(nodes));
-
-            this.Nodes = nodes;
-        }
-
-        public void AddNode(Node node)
-        {
-            ArgumentNullException.ThrowIfNull(node, nameof(node));
-
-            this.Nodes.Add(node);
-        }
-
-        public void SetNodeColor(int id, int color)
-        {
-            foreach (var node in this.Nodes)
-            {
-                if (node.Id == id)
-                {
-                    node.Color = color;
-                }
-            }
-        }
-
+        /// <summary>
+        /// Initializes the pool of available colors for every node in the graph. 
+        /// The maximum number of available colors is assumed to be equal to the total number of nodes.
+        /// </summary>
         public void AssignAvailableColors()
         {
-            foreach(var node in this.Nodes)
+            foreach (var node in this.Nodes)
             {
                 for (int i = 0; i < this.Nodes.Count; i++)
                 {
@@ -45,6 +33,9 @@
             }
         }
 
+        /// <summary>
+        /// Clears the pool of available colors for all nodes in the graph.
+        /// </summary>
         public void DeleteAvailableColors()
         {
             foreach (var node in this.Nodes)
@@ -53,6 +44,10 @@
             }
         }
 
+        /// <summary>
+        /// Determines whether every node in the graph has been assigned a valid color.
+        /// </summary>
+        /// <returns><c>true</c> if all nodes have a color assigned; otherwise, <c>false</c>.</returns>
         public bool IsAllNodesColored()
         {
             foreach (var node in this.Nodes)
@@ -66,12 +61,18 @@
             return true;
         }
 
+        /// <summary>
+        /// Removes all nodes from the graph and resets the global static node identifier counter.
+        /// </summary>
         public void Clear()
         {
             Node.ResetCounter();
             this.Nodes.Clear();
         }
 
+        /// <summary>
+        /// Resets the assigned color of all nodes in the graph to null, leaving the graph structure (nodes and edges) intact.
+        /// </summary>
         public void ClearColors()
         {
             foreach (var node in this.Nodes)
@@ -80,6 +81,11 @@
             }
         }
 
+        /// <summary>
+        /// Constructs the graph's nodes and establishes adjacency relationships (edges) 
+        /// based on a provided two-dimensional adjacency matrix.
+        /// </summary>
+        /// <param name="matrix">A symmetrical 2D integer array representing the adjacency matrix of the graph, where 1 indicates an edge.</param>
         public void GetGraphFromAdjacencyMatrix(int[,] matrix)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -100,40 +106,6 @@
                     }
                 }
             }
-        }
-
-        public int[,] GetAdjacencyMatrix()
-        {
-            var matrix = MakeEmptyMatrix(this.Nodes.Count);
-
-            for (int i = 0; i < this.Nodes.Count; i++)
-            {
-                for (int j = 0; j < this.Nodes.Count; j++)
-                {
-                    if (i < j && this.Nodes[i].Neighbors.Contains(this.Nodes[j]))
-                    {
-                        matrix[i, j] = 1;
-                        matrix[j, i] = 1;
-                    }
-                }
-            }
-
-            return matrix;
-        }
-
-        private int[,] MakeEmptyMatrix(int side)
-        {
-            int[,] matrix = new int[side, side];
-
-            for (int i = 0; i < side; i++)
-            {
-                for (int j = 0; j < side; j++)
-                {
-                    matrix[i, j] = 0;
-                }
-            }
-            
-            return matrix;
         }
     }
 }
